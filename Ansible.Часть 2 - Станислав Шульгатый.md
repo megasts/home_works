@@ -57,6 +57,44 @@
 
 ![Screenshot from 2023-08-19 13-56-34](https://github.com/megasts/home_works/assets/71494027/0e29efbf-46d6-4ccf-bb7f-7ae8ccab67fc)
 
+2.
+```
+---
+- name: "Task 2"
+  hosts: webservers
+  become: true
+  gather_facts: false
+  tasks:
+    - name: "update"
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        force_apt_get: true
+       
+    - name: "tuned install"
+      apt:
+        name: tuned
+        state: present
+
+    - name: "reload"
+      systemd:
+        daemon_reload: true    
+
+    - name: "tuned enable" 
+      systemd:
+        name: tuned
+        enabled: yes
+
+    - name: "status"
+      shell: "systemctl status tuned"
+...
+
+```
+
+![Screenshot from 2023-08-19 14-00-11](https://github.com/megasts/home_works/assets/71494027/281314c1-c82e-42ce-be9f-326579d13b44)
+
+![Screenshot from 2023-08-19 13-43-35](https://github.com/megasts/home_works/assets/71494027/0a77fc53-8bf9-44cc-808b-c254ada9ad97)
+
 
 ...
 
