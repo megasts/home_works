@@ -51,6 +51,7 @@
         dest: /home/megion-vm/kafka/3.5.1/
         remote_src: yes
 ```
+![Screenshot from 2023-08-19 13-08-03](https://github.com/megasts/home_works/assets/71494027/a50b46fc-33a0-474e-a632-7bae9cca86eb)
 
 
 ...
