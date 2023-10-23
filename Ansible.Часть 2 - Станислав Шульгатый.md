@@ -23,33 +23,35 @@
    
     - name: "create directory user/tmp"
       file:
-        path: /home/megion-vm/tmp/
+        path: /home/megion/tmp/
         state: directory
-        owner: megion-vm
-        group: megion-vm
+        owner: megion
+        group: megion
    
     - name: "deleting fail"
       file:
-        path: /home/megion-vm/tmp/kafka-3.5.1-src.tgz
+        path: /home/megion/tmp/kafka-3.5.1-src.tgz
         state: absent
    
     - name: "dowdload arc"
       uri:
         url: https://downloads.apache.org/kafka/3.5.1/kafka-3.5.1-src.tgz
-        dest: /home/megion-vm/tmp/
+        dest: /home/megion/tmp/
        
     - name: "create directory kafka"
       file:
-        path: /home/megion-vm/kafka/3.5.1/
+        path: /home/megion/kafka/3.5.1/
         state: directory
-        owner: megion-vm
-        group: megion-vm
+        owner: megion
+        group: megion
    
     - name: "extract arc"
       unarchive:
-        src: /tmp/kafka-3.5.1-src.tgz
-        dest: /home/megion-vm/kafka/3.5.1/
+        src: /home/megion/tmp/kafka-3.5.1-src.tgz
+        dest: /home/megion/kafka/3.5.1/
         remote_src: yes
+
+...
 ```
 ![Screenshot from 2023-08-19 13-08-03](https://github.com/megasts/home_works/assets/71494027/a50b46fc-33a0-474e-a632-7bae9cca86eb)
 
