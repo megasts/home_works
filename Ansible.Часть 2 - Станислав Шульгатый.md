@@ -106,8 +106,11 @@
 ![Screenshot from 2023-10-25 15-39-00](https://github.com/megasts/home_works/assets/71494027/a7449243-14da-459a-9637-6d270e41aa91)
 
 
+3.
+```
 
 
+```
 ...
 
 ### Задание 2
