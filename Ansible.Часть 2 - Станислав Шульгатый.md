@@ -65,18 +65,24 @@
 - name: "Task 2"
   hosts: webservers
   become: true
-  gather_facts: false
+  gather_facts: yes
   tasks:
-    - name: "update"
+    - name: "tuned install for apt"
       apt:
         update_cache: true
         cache_valid_time: 3600
         force_apt_get: true
-       
-    - name: "tuned install"
-      apt:
         name: tuned
         state: present
+      when: ansible_pkg_mgr == "apt"
+
+    - name: "tuned install for yum"
+      yum:
+        update_cache: true
+        name: tuned
+        state: present
+      when: ansible_pkg_mgr == "yum"
+
 
     - name: "reload"
       systemd:
@@ -93,9 +99,13 @@
 
 ```
 
-![Screenshot from 2023-08-19 14-00-11](https://github.com/megasts/home_works/assets/71494027/281314c1-c82e-42ce-be9f-326579d13b44)
+![Screenshot from 2023-10-25 15-34-27](https://github.com/megasts/home_works/assets/71494027/d29105df-920a-4fb0-aa7d-37526138f39e)
 
-![Screenshot from 2023-08-19 13-43-35](https://github.com/megasts/home_works/assets/71494027/0a77fc53-8bf9-44cc-808b-c254ada9ad97)
+![Screenshot from 2023-10-25 15-38-30](https://github.com/megasts/home_works/assets/71494027/11a88b69-bcb6-4cbb-86cf-a34a5b7eb382)
+
+![Screenshot from 2023-10-25 15-39-00](https://github.com/megasts/home_works/assets/71494027/a7449243-14da-459a-9637-6d270e41aa91)
+
+
 
 
 ...
