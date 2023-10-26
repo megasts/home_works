@@ -108,10 +108,46 @@
 
 3.
 ```
-
+---
+- name: "Task 3"
+  vars:
+    greeting: "Good day!!!"
+  hosts: webservers
+  become: true
+  gather_facts: false
+  tasks:
+    - name: reg status
+      stat: 
+        path: /etc/motd
+      register: stat_motd_file
+      
+    - name: clear file motd if exists
+      lineinfile:
+         path: '/etc/motd'
+         regexp: '\n|.'
+         state: absent
+      when: stat_motd_file.stat.exists
+      
+    - name: change file motd if exists
+      lineinfile:
+          path: '/etc/motd'
+          line: '{{ greeting }}'
+      when: stat_motd_file.stat.exists
+    
+    - name: change file motd if not exists
+      lineinfile:
+        path: /etc/motd
+        line: ' {{ greeting }} '
+        create: true
+        mode: 0644
+      when: stat_motd_file.stat.exists == false 
+...
 
 ```
-...
+![Screenshot from 2023-10-26 17-51-06](https://github.com/megasts/home_works/assets/71494027/2e1ccb0b-edf4-4ea7-a622-1b8080eba84b)
+
+![Screenshot from 2023-10-26 17-49-49](https://github.com/megasts/home_works/assets/71494027/2800ee99-ebfd-46b5-b684-d1daf93d2ae6)
+
 
 ### Задание 2
 
