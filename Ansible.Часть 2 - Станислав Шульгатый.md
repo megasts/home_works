@@ -156,6 +156,50 @@
 
 Модифицируйте плейбук из пункта 3, задания 1. В качестве приветствия он должен установить IP-адрес и hostname управляемого хоста, пожелание хорошего дня системному администратору. 
 
+#### Ответ
+```
+      ---
+      - name: "Task 3"
+        vars:
+          greeting: "have a nice day!!!"
+        hosts: webservers
+        gather_facts: true
+        tasks:
+          - name: reg status
+            stat: 
+              path: /etc/motd
+            register: stat_motd_file
+            
+          - name: clear file motd if exists
+            become: true
+            lineinfile:
+               path: '/etc/motd'
+               regexp: '\n|.'
+               state: absent
+            when: stat_motd_file.stat.exists
+            
+          - name: change file motd if exists
+            become: true
+            lineinfile:
+                path: '/etc/motd'
+                line: ' IP: {{ansible_all_ipv4_addresses[0]}} HostName: {{ansible_hostname}} Adminstrator {{ansible_user_id}}, {{ greeting }} '
+            when: stat_motd_file.stat.exists
+          
+          - name: change file motd if not exists
+            become: true
+            lineinfile:
+              path: /etc/motd
+              line: ' IP: {{ansible_all_ipv4_addresses[0]}} HostName: {{ansible_hostname}} Adminstrator {{ansible_user_id}}, {{ greeting }} '
+              create: true
+              mode: 0644
+            when: stat_motd_file.stat.exists == false
+        
+      ...
+```
+![Screenshot from 2023-10-27 15-25-23](https://github.com/megasts/home_works/assets/71494027/ff4bd3d5-fa19-47c9-b7dd-ccdbf564d6bf)
+
+![Screenshot from 2023-10-27 15-24-50](https://github.com/megasts/home_works/assets/71494027/24c4079c-1842-4b5d-bcfe-94d3dea7471d)
+
 
 
 ### Задание 3
